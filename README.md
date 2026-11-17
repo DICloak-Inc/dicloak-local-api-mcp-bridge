@@ -46,23 +46,30 @@ You are configuring the MCP server in this file. Usually, the system will use th
 ### Step 4: Add DICloak MCP configuration
 You need to add the DICloak MCP server configuration details within the mcpservers object. Carefully paste the following JSON snippet into your claude_desktop_config.json file.
 Important Note: Replace "DICLOAK_API_KEY" and "DICLOAK_BASE_URL" with your actual DICloak Local API token and request address.
+Important Note: Please append "/openapi" after the copied API address. This is mandatory. For example: 127.0.0.1:52140/openapi
 
 <img width="380" src='https://cdn1.dicloak.com/static/mcp/claude-4.png' />
 
    ```json
    {
      "mcpServers": {
-       "dicloak-local-api-mcp-bridge": {
+       "dicloak-local-api-mcp": {
          "command": "npx",
          "args": ["dicloak-local-api-mcp-bridge"],
          "env": {
-         "DICLOAK_API_KEY": "PASTE_YOUR_API_KEY_HERE",
-         "DICLOAK_BASE_URL": "PASTE_YOUR_BASE_URL_HERE"
+           "DICLOAK_API_KEY": "PASTE_YOUR_API_KEY_HERE",
+           "DICLOAK_BASE_URL": "PASTE_YOUR_BASE_URL_HERE",
+           "DICLOAK_STORAGE_PATH": "OPTIONAL_CUSTOM_PATH_HERE"
          }
        }
      }
    }
    ```
+   
+   **Optional Configuration:**
+   - `DICLOAK_STORAGE_PATH`: (Optional) Specify a custom directory to store session data and screenshots. If not set, the system temporary directory will be used.
+     - **Windows Example:** `"C:\\Users\\YourName\\Documents\\DicloakData"`
+     - **macOS/Linux Example:** `"/Users/yourname/Documents/DicloakData"`
 
 
 
@@ -86,12 +93,13 @@ Congratulations! You have successfully connected DICloak MCP with Claude Desktop
    ```json
    {
      "mcpServers": {
-       "dicloak-local-api-mcp-bridge": {
+       "dicloak-local-api-mcp": {
          "command": "npx",
          "args": ["dicloak-local-api-mcp-bridge"],
          "env": {
             "DICLOAK_API_KEY": "PASTE_YOUR_API_KEY_HERE",
-            "DICLOAK_BASE_URL": "PASTE_YOUR_BASE_URL_HERE"
+            "DICLOAK_BASE_URL": "PASTE_YOUR_BASE_URL_HERE",
+            "DICLOAK_STORAGE_PATH": "OPTIONAL_CUSTOM_PATH_HERE"
          }
        }
      }
@@ -109,4 +117,4 @@ For other MCP-compatible clients, use the same configuration pattern with the ap
 3. Generate or copy your API token and API address
 4. Use this token in the configuration above
 
-Important Note: Please append "/openapi" after the copied API address. This is mandatory.
+Important Note: Please append "/openapi" after the copied API address. This is mandatory. For example: 127.0.0.1:52140/openapi

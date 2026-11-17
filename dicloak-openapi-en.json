@@ -1,0 +1,2325 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dicloak Local API",
+    "description": "API for controlling the local Dicloak client, providing environment management, RPA automation and related features.",
+    "version": "1.0.0"
+  },
+  "tag": [
+    {
+      "name": "profile",
+      "description": "Profile is a main entity of the application. It stores all the information that needs to be saved in browser to change your fingerprint."
+    },
+    {
+      "name": "profile-group",
+      "description": "\"Profile group\" refers to the management of profile groups in dicloak; It is not the case of member grouping or any other kind of thing."
+    },
+    {
+      "name": "rpa",
+      "description": "RPA refers to the execution of specified advanced automation capabilities in Dicloak; such as cookie robots, YouTube browsing, etc."
+    },
+    {
+      "name": "proxy",
+      "description": "Proxy in Dicloak is a separate entity that belongs to a profile but also can be managed separately for convenience."
+    },
+    {
+      "name": "member",
+      "description": "Members generally refer to the list of team members managed by the administrator. They have different groupings, deactivation policies, etc."
+    }
+  ],
+  "servers": [
+    {
+      "url": "{{DICLOAK_BASE_URL}}",
+      "description": "Dynamic address of the local Dicloak client."
+    }
+  ],
+  "paths": {
+    "/v1/env": {
+      "post": {
+        "operationId": "create-environment",
+        "summary": "Create a new environment",
+        "description": "Create a new Dicloak browser environment based on the user's input. Important: use the provided 'full_default_template' as the request body template and replace only necessary fields (e.g., name, group_id). A minimal example can be used for interactive guidance, but fill all missing fields from the full_default_template before the final call.",
+        "tags": ["profile"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnvironmentRequest"
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Minimal interactive example (for guidance)",
+                  "value": {
+                    "name": "",
+                    "group_id": ""
+                  }
+                },
+                "full": {
+                  "summary": "Full default template (recommended to use or copy and modify necessary fields)",
+                  "value": {
+                    "extensions_type": "ALLOW",
+                    "name": "",
+                    "browser": "CHROME",
+                    "group_id": "",
+                    "browser_version_id": "120",
+                    "ua_os": "WINDOWS",
+                    "os": {
+                      "windows": ["windows-all"],
+                      "mac": [],
+                      "android": [],
+                      "ios": [],
+                      "linux": []
+                    },
+                    "ua_type": "[\"all\"]",
+                    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6134.0 Safari/537.36",
+                    "proxy_way": "CUSTOM",
+                    "proxy_type": "NON_USE",
+                    "proxy_ip_type": "IPAPI",
+                    "proxy_ip_addr_type": "IPV4",
+                    "account_list": [],
+                    "urls": [],
+                    "fixed_urls": [],
+                    "restore_url_type": "GLOBAL",
+                    "config": "{\"acceptLangType\":\"ip\",\"acceptLangValue\":[\"en-US\",\"en\"],\"langType\":\"acceptLang\",\"langValue\":\"local\",\"timezoneType\":\"ip\",\"timezoneValue\":\"local\",\"geoType\":\"ask\",\"geoSubType\":\"ip\",\"geoValue\":{},\"fontType\":\"custom\",\"fontValue\":[\"default\"],\"webrtcType\":\"disable\",\"webrtcValue\":\"\",\"canvasType\":\"noise\",\"canvasValue\":78307,\"ratioType\":\"truth\",\"ratioValue\":\"\",\"ratioWidth\":\"\",\"webGLImageType\":\"noise\",\"webGLImageValue\":12684,\"mediadeviceType\":\"noise\",\"mediadeviceValue\":13189,\"webGLMetadataType\":\"custom\",\"webglManufacturer\":\"Google Inc. (NVIDIA)\",\"webglRender\":\"ANGLE (NVIDIA, NVIDIA GeForce GTX 1050 Direct3D11 vs_5_0 ps_5_0, D3D11-31.0.15.3161)\",\"webGPUType\":\"inWebGL\",\"webGPUTypeValue\":82291,\"audioContextType\":\"noise\",\"audioContextValue\":51461,\"clientRectsType\":\"noise\",\"clientRectsValue\":75611,\"speechVoicesType\":\"noise\",\"speechVoicesValue\":49546,\"hardwareConcurrencyValue\":\"10\",\"deviceMemoryValue\":\"2\",\"trackType\":\"0\",\"batteryType\":\"noise\",\"batteryValue\":67456,\"portType\":\"1\",\"portValue\":\"\",\"accelerateType\":\"0\",\"startParams\":\"\",\"deviceNameType\":\"truth\",\"deviceNameValue\":\"\",\"macType\":\"truth\",\"macValue\":\"\",\"macTruthValue\":\"6c:1f:f7:0f:65:58\"}",
+                    "data_config_option": [1],
+                    "browser_config_option": [1],
+                    "data_type": "global",
+                    "browser_type": "global",
+                    "env_mutil_open_type": "GLOBAL",
+                    "spoofing_video_type": "DISABLE",
+                    "local_data_config": "{\"type\":0,\"browserType\":\"global\",\"dataType\":null}",
+                    "proxy_soft_enable": true,
+                    "proxy_soft": "NONE",
+                    "proxy_soft_info": {
+                      "ip": "",
+                      "country": "",
+                      "country_code": "",
+                      "region": "",
+                      "region_code": "",
+                      "city": ""
+                    },
+                    "proxy_api_info": {
+                      "ip_method": "EVERY_TIME",
+                      "url": "",
+                      "ip": "",
+                      "port": ""
+                    },
+                    "bookmark_config_val": {
+                      "bookmark_type": "global",
+                      "status": false,
+                      "file_content": [],
+                      "cover_rule": 1,
+                      "file_name": "",
+                      "type": 1
+                    },
+                    "access_limit_config_val": {
+                      "access_limit_type": "global",
+                      "status": false,
+                      "type": 1,
+                      "quick_selection_option": [],
+                      "quick_selection_type": 0,
+                      "url_list": ""
+                    },
+                    "env_tag_ids": [],
+                    "extensions_group_id": "",
+                    "data_config": "{\"type\":0,\"dataType\":\"global\"}",
+                    "browser_config": "{\"type\":0,\"browserType\":\"global\"}",
+                    "bookmark_config": "{\"bookmarkType\":\"global\",\"status\":false,\"fileContent\":[],\"coverRule\":1,\"fileName\":\"\",\"type\":1}",
+                    "access_limit_config": "{\"accessLimitType\":\"global\",\"status\":false,\"type\":1,\"quickSelectionOption\":[],\"quickSelectionType\":0,\"urlList\":\"\"}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/list": {
+      "get": {
+        "operationId": "listEnvs",
+        "summary": "List environments",
+        "description": "Return a paginated list of environments or all environments. Supports pagination and filters (e.g., name, group_id, status).",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "page_no",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Current page number (optional)"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "description": "Page size (optional)"
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether to return all data (boolean, optional)"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Whether to return details (boolean, optional)"
+          },
+          {
+            "name": "serial_num",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Serial number (optional)"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 100
+            },
+            "description": "Filter by name (fuzzy match) (optional)"
+          },
+          {
+            "name": "group_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Group ID (optional)"
+          },
+          {
+            "name": "proxy_host",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Proxy host (optional)"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["DISABLED", "ENABLED"]
+            },
+            "description": "Status (optional)"
+          },
+          {
+            "name": "platform_user",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Platform user (optional)"
+          },
+          {
+            "name": "start_create_time",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "Start creation time (optional)"
+          },
+          {
+            "name": "end_create_time",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": "End creation time (optional)"
+          },
+          {
+            "name": "operate_status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["DISABLED", "ENABLED", "LOCK"]
+            },
+            "description": "Operation status (optional)"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "description": "Remark (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned environment list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/{envId}/info": {
+      "get": {
+        "operationId": "getEnvInfo",
+        "summary": "Get environment details",
+        "description": "Retrieve detailed information for a single environment by envId.",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned environment details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/{envId}/open": {
+      "patch": {
+        "operationId": "openEnv",
+        "summary": "Open environment",
+        "description": "Open the environment specified by envId (set it to open state and perform necessary initialization).",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "requestBody": {
+          "description": "Optional request body to specify additional parameters when opening the environment. For example, the headless mode",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OpenEnvRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment opened successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/{envId}/close": {
+      "patch": {
+        "operationId": "closeEnv",
+        "summary": "Close environment",
+        "description": "Close the environment specified by envId (release resources and mark it as closed).",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Environment closed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/{envId}": {
+      "put": {
+        "operationId": "updateEnv",
+        "summary": "Update environment",
+        "description": "Update information for the environment specified by envId. Important: use the provided 'full_default_template' as the request body template and replace only necessary fields (e.g., name, group_id). A minimal example may be used for interactive guidance, but fill missing fields from the full_default_template before the final call.",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnvironmentRequest"
+              },
+              "examples": {
+                "minimal": {
+                  "summary": "Minimal interactive example (for guidance)",
+                  "value": {
+                    "name": "",
+                    "group_id": ""
+                  }
+                },
+                "full": {
+                  "summary": "Full default template (recommended to use or copy and modify necessary fields)",
+                  "value": {
+                    "extensions_type": "ALLOW",
+                    "name": "",
+                    "browser": "CHROME",
+                    "group_id": "",
+                    "browser_version_id": "120",
+                    "ua_os": "WINDOWS",
+                    "os": {
+                      "windows": ["windows-all"],
+                      "mac": [],
+                      "android": [],
+                      "ios": [],
+                      "linux": []
+                    },
+                    "ua_type": "[\"all\"]",
+                    "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6134.0 Safari/537.36",
+                    "proxy_way": "CUSTOM",
+                    "proxy_type": "NON_USE",
+                    "proxy_ip_type": "IPAPI",
+                    "proxy_ip_addr_type": "IPV4",
+                    "account_list": [],
+                    "urls": [],
+                    "fixed_urls": [],
+                    "restore_url_type": "GLOBAL",
+                    "config": "{\"acceptLangType\":\"ip\",\"acceptLangValue\":[\"en-US\",\"en\"],\"langType\":\"acceptLang\",\"langValue\":\"local\",\"timezoneType\":\"ip\",\"timezoneValue\":\"local\",\"geoType\":\"ask\",\"geoSubType\":\"ip\",\"geoValue\":{},\"fontType\":\"custom\",\"fontValue\":[\"default\"],\"webrtcType\":\"disable\",\"webrtcValue\":\"\",\"canvasType\":\"noise\",\"canvasValue\":78307,\"ratioType\":\"truth\",\"ratioValue\":\"\",\"ratioWidth\":\"\",\"webGLImageType\":\"noise\",\"webGLImageValue\":12684,\"mediadeviceType\":\"noise\",\"mediadeviceValue\":13189,\"webGLMetadataType\":\"custom\",\"webglManufacturer\":\"Google Inc. (NVIDIA)\",\"webglRender\":\"ANGLE (NVIDIA, NVIDIA GeForce GTX 1050 Direct3D11 vs_5_0 ps_5_0, D3D11-31.0.15.3161)\",\"webGPUType\":\"inWebGL\",\"webGPUTypeValue\":82291,\"audioContextType\":\"noise\",\"audioContextValue\":51461,\"clientRectsType\":\"noise\",\"clientRectsValue\":75611,\"speechVoicesType\":\"noise\",\"speechVoicesValue\":49546,\"hardwareConcurrencyValue\":\"10\",\"deviceMemoryValue\":\"2\",\"trackType\":\"0\",\"batteryType\":\"noise\",\"batteryValue\":67456,\"portType\":\"1\",\"portValue\":\"\",\"accelerateType\":\"0\",\"startParams\":\"\",\"deviceNameType\":\"truth\",\"deviceNameValue\":\"\",\"macType\":\"truth\",\"macValue\":\"\",\"macTruthValue\":\"6c:1f:f7:0f:65:58\"}",
+                    "data_config_option": [1],
+                    "browser_config_option": [1],
+                    "data_type": "global",
+                    "browser_type": "global",
+                    "env_mutil_open_type": "GLOBAL",
+                    "spoofing_video_type": "DISABLE",
+                    "local_data_config": "{\"type\":0,\"browserType\":\"global\",\"dataType\":null}",
+                    "proxy_soft_enable": true,
+                    "proxy_soft": "NONE",
+                    "proxy_soft_info": {
+                      "ip": "",
+                      "country": "",
+                      "country_code": "",
+                      "region": "",
+                      "region_code": "",
+                      "city": ""
+                    },
+                    "proxy_api_info": {
+                      "ip_method": "EVERY_TIME",
+                      "url": "",
+                      "ip": "",
+                      "port": ""
+                    },
+                    "bookmark_config_val": {
+                      "bookmark_type": "global",
+                      "status": false,
+                      "file_content": [],
+                      "cover_rule": 1,
+                      "file_name": "",
+                      "type": 1
+                    },
+                    "access_limit_config_val": {
+                      "access_limit_type": "global",
+                      "status": false,
+                      "type": 1,
+                      "quick_selection_option": [],
+                      "quick_selection_type": 0,
+                      "url_list": ""
+                    },
+                    "env_tag_ids": [],
+                    "extensions_group_id": "",
+                    "data_config": "{\"type\":0,\"dataType\":\"global\"}",
+                    "browser_config": "{\"type\":0,\"browserType\":\"global\"}",
+                    "bookmark_config": "{\"bookmarkType\":\"global\",\"status\":false,\"fileContent\":[],\"coverRule\":1,\"fileName\":\"\",\"type\":1}",
+                    "access_limit_config": "{\"accessLimitType\":\"global\",\"status\":false,\"type\":1,\"quickSelectionOption\":[],\"quickSelectionType\":0,\"urlList\":\"\"}"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteEnv",
+        "summary": "Delete environment",
+        "description": "Perform a soft delete for the specified envId (moves to recycle bin).",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Environment soft-deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/{envId}/thorough": {
+      "delete": {
+        "operationId": "deleteEnvCompletely",
+        "summary": "Delete environment permanently",
+        "description": "Permanently delete the specified envId and all associated data. Use with caution.",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Environment permanently deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/{envId}/recover": {
+      "post": {
+        "operationId": "recoverEnv",
+        "summary": "Recover environment",
+        "description": "Recover a previously deleted environment. Accepts a simplified RecoverEnv structure and can restore from recycle bin or to a specified state. The request body may include fields such as code, data, msg, and next.",
+        "tags": ["profile"],
+        "parameters": [
+          {
+            "name": "envId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Environment ID"
+          }
+        ],
+        "requestBody": {
+          "description": "RecoverEnv request body (simplified)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverEnv"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment recovered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/check": {
+      "patch": {
+        "operationId": "checkProxy",
+        "summary": "Check proxy",
+        "description": "Perform connectivity and geolocation checks on provided proxy parameters. Accepts ProxyCheckReq structure and returns results (proxy check info is included in ApiResp.data).",
+        "tags": ["profile"],
+        "requestBody": {
+          "description": "ProxyCheckReq request body (fields required for proxy checking)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProxyCheckReq"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Check completed and results returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/group": {
+      "get": {
+        "operationId": "listEnvGroups",
+        "summary": "List environment groups",
+        "description": "Return a paginated list of environment groups or all groups. Supports pagination and filters such as env_id, member_id, name.",
+        "tags": ["profile-group"],
+        "parameters": [
+          {
+            "name": "page_no",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1 },
+            "description": "Current page number (optional)"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "description": "Page size (optional)"
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return all data (optional)"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return details (optional)"
+          },
+          {
+            "name": "env_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Included environment ID (optional)"
+          },
+          {
+            "name": "member_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Member ID (optional)"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by name (optional)"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Remark (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned environment group list",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "saveEnvGroup",
+        "summary": "Create environment group",
+        "description": "Create a new environment group. Accepts a request body defined by PutEnvGroup (member_ids, name, remark).",
+        "tags": ["profile-group"],
+        "requestBody": {
+          "description": "PutEnvGroup request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutEnvGroup" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment group saved successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/env/group/{id}": {
+      "get": {
+        "operationId": "getEnvGroupDetail",
+        "summary": "Get environment group details",
+        "description": "Retrieve detailed information for an environment group by ID.",
+        "tags": ["profile-group"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Environment group ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned environment group details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateEnvGroup",
+        "summary": "Update environment group",
+        "description": "Update the environment group specified by ID. Accepts a request body defined by PutEnvGroup (member_ids, name, remark).",
+        "tags": ["profile-group"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Environment group ID"
+          }
+        ],
+        "requestBody": {
+          "description": "PutEnvGroup request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PutEnvGroup" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment group updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteEnvGroup",
+        "summary": "Delete environment group",
+        "description": "Delete the environment group specified by ID. The request body includes del_env to indicate whether to also delete environments inside the group (true/false).",
+        "tags": ["profile-group"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Environment group ID"
+          }
+        ],
+        "requestBody": {
+          "description": "DelEnvGroup request body (del_env)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DelEnvGroup" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Environment group deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/member/roles": {
+      "get": {
+        "operationId": "getMemberRoles",
+        "summary": "List roles",
+        "description": "Paginated retrieval of roles. Supports filters such as page_no, page_size, all, detail, member_id, name, remark.",
+        "tags": ["member"],
+        "parameters": [
+          {
+            "name": "page_no",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1 },
+            "description": "Current page number (optional)"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "description": "Page size (optional)"
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return all results (optional)"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return details (optional)"
+          },
+          {
+            "name": "member_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Role ID (optional)"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by name (optional)"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Remark (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned role list",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/member/{id}": {
+      "get": {
+        "operationId": "getMemberInfo",
+        "summary": "Get member details",
+        "description": "Retrieve detailed information for a member by ID.",
+        "tags": ["member"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Member ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned member details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateMember",
+        "summary": "Update member (PUT)",
+        "description": "Update the member specified by ID using the full or partial MemberEditReq structure (PUT).",
+        "tags": ["member"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Member ID"
+          }
+        ],
+        "requestBody": {
+          "description": "MemberEditReq request body (agent_id/all_env_group/authority/email/env_group_ids/manager_id/name/passwd/phone/remark/role_id/status/type)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MemberEditReq" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "patchMember",
+        "summary": "Patch member (PATCH)",
+        "description": "Partially update the member specified by ID using MemberEditPatchReq (PATCH).",
+        "tags": ["member"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Member ID"
+          }
+        ],
+        "requestBody": {
+          "description": "MemberEditPatchReq request body (same as MemberEditReq but for PATCH)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MemberEditPatchReq" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member partially updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteMember",
+        "summary": "Delete member",
+        "description": "Delete the member specified by ID (soft or hard delete is determined by backend logic).",
+        "tags": ["member"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Member ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/members": {
+      "get": {
+        "operationId": "listMembers",
+        "summary": "List members",
+        "description": "Paginated retrieval of members. Supports filters such as page_no, page_size, all, authority, detail, start_create_time, end_create_time, env_group_id, role_id, status, user, remark.",
+        "tags": ["member"],
+        "parameters": [
+          {
+            "name": "page_no",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1 },
+            "description": "Current page number (optional)"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "description": "Page size (optional)"
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return all results (optional)"
+          },
+          {
+            "name": "authority",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "Authority (e.g., ADMIN/MANAGER/MEMBER/SUPER_ADMIN)"
+            },
+            "description": "Filter by authority (optional)"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return details (optional)"
+          },
+          {
+            "name": "start_create_time",
+            "in": "query",
+            "schema": { "type": "string", "format": "date-time" },
+            "description": "Start creation time (optional)"
+          },
+          {
+            "name": "end_create_time",
+            "in": "query",
+            "schema": { "type": "string", "format": "date-time" },
+            "description": "End creation time (optional)"
+          },
+          {
+            "name": "env_group_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Environment group ID (optional)"
+          },
+          {
+            "name": "role_id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Role ID (optional)"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Status (optional)"
+          },
+          {
+            "name": "user",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Filter by user account/email (optional)"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Remark (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned member list",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/member": {
+      "post": {
+        "operationId": "saveMember",
+        "summary": "Create member",
+        "description": "Create a new member. Accepts MemberEditReq structure (agent_id/all_env_group/authority/email/env_group_ids/manager_id/name/passwd/phone/remark/role_id/status/type).",
+        "tags": ["member"],
+        "requestBody": {
+          "description": "MemberEditReq request body",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MemberEditReq" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/org/{id}": {
+      "post": {
+        "operationId": "changeOrg",
+        "summary": "Switch organization",
+        "description": "Switch the current session/context to the organization specified by ID (switch logic handled by the backend). Request body may be empty. Important: switching organizations will restart the Dicloak Local API service and may temporarily disable Dicloak Local API capabilities; proceed with caution.",
+        "tags": ["org"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Target organization ID"
+          }
+        ],
+        "requestBody": {
+          "description": "ChangeOrg request body (schema only contains ApiKey and is ignored; additional fields are allowed)",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ChangeOrgReq" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Result of the switch organization operation",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/proxy/{id}": {
+      "get": {
+        "operationId": "getProxyInfo",
+        "summary": "Get proxy details",
+        "description": "Retrieve detailed information for a proxy by ID.",
+        "tags": ["proxy"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Proxy ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned proxy details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateProxy",
+        "summary": "Update proxy",
+        "description": "Update the specified proxy information. Supported fields include host, ip_type, out_ip, passwd, port, remark, status, type, user_name.",
+        "tags": ["proxy"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Proxy ID"
+          }
+        ],
+        "requestBody": {
+          "description": "ProxyEditReq request body (host, ip_type, out_ip, passwd, port, remark, status, type, user_name)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProxyEditReq" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proxy updated successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteProxy",
+        "summary": "Delete proxy",
+        "description": "Delete the proxy specified by ID.",
+        "tags": ["proxy"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Proxy ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proxy deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/proxys": {
+      "get": {
+        "operationId": "listProxies",
+        "summary": "List proxies",
+        "description": "Paginated retrieval of proxies. Supports filters such as all, detail, env, host, id, remark, serial_num, type.",
+        "tags": ["proxy"],
+        "parameters": [
+          {
+            "name": "page_no",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1 },
+            "description": "Current page number (optional)"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "description": "Page size (optional)"
+          },
+          {
+            "name": "all",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return all results (optional)"
+          },
+          {
+            "name": "detail",
+            "in": "query",
+            "schema": { "type": "boolean" },
+            "description": "Whether to return details (optional)"
+          },
+          {
+            "name": "env",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Environment (optional)"
+          },
+          {
+            "name": "host",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Host (optional)"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Proxy ID (optional)"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Remark (optional)"
+          },
+          {
+            "name": "serial_num",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1 },
+            "description": "Serial number (optional)"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["HTTP", "HTTPS", "IPFLY", "SOCKS5"]
+            },
+            "description": "Proxy type (optional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned proxy list",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/proxy": {
+      "post": {
+        "operationId": "createProxy",
+        "summary": "Create proxy",
+        "description": "Create a new proxy. Required fields: type, host, port. Optional fields: remark, user_name, passwd.",
+        "tags": ["proxy"],
+        "requestBody": {
+          "description": "ProxyCreateReq request body (type, host, port, remark, user_name, passwd)",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProxyCreateReq" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proxy created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rpa/{batchId}/batch": {
+      "get": {
+        "operationId": "query-rpa-batch-results",
+        "summary": "Query RPA batch results by batch ID",
+        "description": "Query the execution results of an RPA automation by the provided batchId.",
+        "tags": ["rpa"],
+        "parameters": [
+          {
+            "name": "batchId",
+            "in": "path",
+            "required": true,
+            "description": "The batch ID to query.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query successful. Returns RPA automation results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rpa/task/get_detail/{taskId}": {
+      "get": {
+        "operationId": "getRpaTaskDetail",
+        "summary": "Get RPA task details",
+        "description": "Retrieve detailed information for an RPA task by taskId.",
+        "tags": ["rpa"],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Task ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully returned task details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiResp" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-KEY"
+      }
+    },
+    "schemas": {
+      "ApiResp": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "example": 0
+          },
+          "msg": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "type": ["object", "array", "null"],
+            "example": {}
+          }
+        }
+      },
+      "RecoverEnv": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object"
+          },
+          "msg": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "OpenEnvRequest": {
+        "type": "object",
+        "properties": {
+          "headless": {
+            "type": "boolean",
+            "description": "Whether to open in headless mode",
+            "default": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProxyCheckReq": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Proxy type",
+            "enum": [
+              "NON_USE",
+              "HTTP",
+              "HTTPS",
+              "SOCKS5",
+              "SSH",
+              "NONE",
+              "IPFLY",
+              "S5PROXY",
+              "CHERRY_PROXY",
+              "COMMON"
+            ]
+          },
+          "host": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "passwd": {
+            "type": "string"
+          },
+          "remark": {
+            "type": "string"
+          },
+          "ipType": {
+            "type": "string",
+            "enum": ["IP2LOCATION", "IPAPI"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["SUCCESS", "FAIL", "WAIT"]
+          },
+          "proxySettingType": {
+            "type": "string",
+            "enum": ["COMMON", "DYNAMIC", "FROM_API"]
+          },
+          "ipAddrType": {
+            "type": "string",
+            "enum": ["IPV4", "IPV6"]
+          }
+        },
+        "additionalProperties": true
+      },
+      "CreateEnvironmentRequest": {
+        "type": "object",
+        "description": "Full environment creation request. The server does not auto-complete fields: the caller must send a complete request body. Recommended flow: 1) use the full_default_template as a base; 2) replace required fields (name, browser, group_id); 3) send the request.",
+        "required": ["name", "browser", "group_id"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Environment name (must be provided by the user, or use an auto-generated placeholder).",
+            "example": "example-env"
+          },
+          "browser": {
+            "type": "string",
+            "description": "Browser type (e.g., CHROME).",
+            "enum": ["CHROME"],
+            "default": "CHROME"
+          },
+          "group_id": {
+            "type": "string",
+            "description": "Group ID (required). If unknown, call GET /v1/env/group and use the id of the group with is_default = true."
+          },
+          "group_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of group IDs (for backward compatibility)."
+          },
+          "extensions_type": {
+            "type": "string",
+            "enum": ["ALLOW", "BAN"],
+            "description": "Extension loading policy.",
+            "default": "ALLOW"
+          },
+          "browser_version_id": {
+            "type": "string",
+            "description": "Browser version ID.",
+            "default": "120"
+          },
+          "ua_os": {
+            "type": "string",
+            "description": "UA operating system used for UA selection.",
+            "enum": ["WINDOWS", "MAC", "LINUX", "ANDROID", "IOS"],
+            "default": "WINDOWS"
+          },
+          "os": {
+            "type": "object",
+            "description": "Subset configuration for multi-platform support.",
+            "properties": {
+              "windows": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "mac": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "android": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "ios": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "linux": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "ua_type": {
+            "type": "string",
+            "description": "UA selection type.",
+            "example": "[\"all\"]",
+            "default": "[\"all\"]"
+          },
+          "ua": {
+            "type": "string",
+            "description": "User-Agent string. If omitted, a random UA is used. Random UAs follow formats like Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6134.0 Safari/537.36.",
+            "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)..."
+          },
+          "proxy_way": {
+            "type": "string",
+            "enum": ["CUSTOM", "SELECT_EXIST", "RANDOM", "NonUse", "FROM_API"],
+            "description": "Proxy usage method.",
+            "default": "CUSTOM"
+          },
+          "proxy_type": {
+            "type": "string",
+            "enum": ["NON_USE", "HTTP", "HTTPS", "SOCKS5"],
+            "description": "Proxy type.",
+            "default": "NON_USE"
+          },
+          "proxy_ip_type": {
+            "type": "string",
+            "enum": ["IPAPI", "IP2LOCATION"],
+            "description": "Proxy lookup/detection source.",
+            "default": "IPAPI"
+          },
+          "proxy_ip_addr_type": {
+            "type": "string",
+            "enum": ["IPV4", "IPV6"],
+            "description": "Proxy IP address type.",
+            "default": "IPV4"
+          },
+          "account_list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EnvAccount"
+            },
+            "description": "Account list (default: empty array).",
+            "default": []
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "Startup URL list (default: empty).",
+            "default": []
+          },
+          "fixed_urls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "Fixed URL list (default: empty).",
+            "default": []
+          },
+          "restore_url_type": {
+            "type": "string",
+            "enum": ["GLOBAL", "RESTORE", "NO_RESTORE"],
+            "description": "Startup page restore type.",
+            "default": "GLOBAL"
+          },
+          "config": {
+            "type": "string",
+            "description": "Fingerprint configuration (JSON string). If using the default template, keep this field as the default JSON string. For numeric values (e.g. canvasValue) generate a reasonable 5-digit integer if randomized. Other types (truth or noise) can keep the default values.",
+            "example": "{\"acceptLangType\":\"ip\",\"fontType\":\"custom\"}",
+            "default": "{}"
+          },
+          "data_config_option": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Data configuration options, usually an array of integers.",
+            "default": [1]
+          },
+          "browser_config_option": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "description": "Browser configuration options, usually an array of integers.",
+            "default": [1]
+          },
+          "data_type": {
+            "type": "string",
+            "enum": ["global", "custom"],
+            "description": "Data type field.",
+            "default": "global"
+          },
+          "browser_type": {
+            "type": "string",
+            "enum": ["global", "custom"],
+            "description": "Browser configuration type.",
+            "default": "global"
+          },
+          "env_mutil_open_type": {
+            "type": "string",
+            "description": "Multi-open type field.",
+            "default": "GLOBAL"
+          },
+          "spoofing_video_type": {
+            "type": "string",
+            "description": "Video stream spoofing type.",
+            "default": "DISABLE"
+          },
+          "local_data_config": {
+            "type": "string",
+            "enum": ["DEFAULT", "ENABLE", "DISABLE"],
+            "description": "Compatibility field, usually a JSON string.",
+            "default": "DISABLE"
+          },
+          "proxy_soft_enable": {
+            "type": "boolean",
+            "description": "Whether the proxy provider reads configured accounts.",
+            "default": false
+          },
+          "proxy_soft": {
+            "type": "string",
+            "description": "Proxy provider type.",
+            "enum": ["NONE", "HTTP", "HTTPS", "SOCKS5"],
+            "default": "NONE"
+          },
+          "proxy_soft_info": {
+            "type": "object",
+            "properties": {
+              "ip": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "country_code": {
+                "type": "string"
+              },
+              "region": {
+                "type": "string"
+              },
+              "region_code": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "description": "Proxy provider information (default: empty strings/values)."
+          },
+          "proxy_api_info": {
+            "type": "object",
+            "properties": {
+              "ip_method": {
+                "type": "string",
+                "default": "EVERY_TIME",
+                "enum": ["EVERY_TIME", "AFTER_EXPIRE"]
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "ip": {
+                "type": "string"
+              },
+              "port": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "description": "API for fetching proxy information."
+          },
+          "bookmark_config_val": {
+            "type": "object",
+            "properties": {
+              "bookmark_type": {
+                "type": "string",
+                "default": "global",
+                "enum": ["global", "custom"]
+              },
+              "status": {
+                "type": "boolean",
+                "default": false
+              },
+              "file_content": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "cover_rule": {
+                "type": "integer",
+                "default": 1,
+                "enum": [1, 2],
+                "description": "1 means overwrite, 2 means append"
+              },
+              "file_name": {
+                "type": "string",
+                "default": ""
+              },
+              "type": {
+                "type": "integer",
+                "default": 1,
+                "enum": [1, 2],
+                "description": "1 means append, 2 means overwrite"
+              }
+            },
+            "additionalProperties": false,
+            "description": "Bookmark settings"
+          },
+          "access_limit_config_val": {
+            "type": "object",
+            "properties": {
+              "access_limit_type": {
+                "type": "string",
+                "default": "global"
+              },
+              "status": {
+                "type": "boolean",
+                "default": false
+              },
+              "type": {
+                "type": "integer",
+                "default": 1
+              },
+              "quick_selection_option": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "quick_selection_type": {
+                "type": "integer",
+                "default": 0
+              },
+              "url_list": {
+                "type": "string",
+                "default": ""
+              }
+            },
+            "additionalProperties": false
+          },
+          "env_tag_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of environment tag IDs",
+            "default": []
+          },
+          "extensions_group_id": {
+            "type": "string",
+            "description": "Extensions group ID",
+            "default": ""
+          },
+          "data_config": {
+            "type": "string",
+            "description": "Data configuration JSON string",
+            "example": "{\"type\":0,\"dataType\":\"global\"}",
+            "default": "{\"type\":0,\"dataType\":\"global\"}"
+          },
+          "browser_config": {
+            "type": "string",
+            "description": "Browser configuration JSON string",
+            "example": "{\"type\":0,\"browserType\":\"global\"}",
+            "default": "{\"type\":0,\"browserType\":\"global\"}"
+          },
+          "bookmark_config": {
+            "type": "string",
+            "description": "Bookmark configuration JSON string",
+            "example": "{\"bookmarkType\":\"global\",\"status\":false,\"fileContent\":[],\"coverRule\":1,\"fileName\":\"\",\"type\":1}",
+            "default": "{\"bookmarkType\":\"global\",\"status\":false,\"fileContent\":[],\"coverRule\":1,\"fileName\":\"\",\"type\":1}"
+          },
+          "access_limit_config": {
+            "type": "string",
+            "description": "Access limit configuration JSON string",
+            "example": "{\"accessLimitType\":\"global\",\"status\":false,\"type\":1,\"quickSelectionOption\":[],\"quickSelectionType\":0,\"urlList\":\"\"}",
+            "default": "{\"accessLimitType\":\"global\",\"status\":false,\"type\":1,\"quickSelectionOption\":[],\"quickSelectionType\":0,\"urlList\":\"\"}"
+          }
+        },
+        "additionalProperties": false,
+        "example": {
+          "extensions_type": "ALLOW",
+          "name": "my-env-1",
+          "browser": "CHROME",
+          "group_ids": ["1876881021063852033"],
+          "group_id": "1876881021063852033",
+          "browser_version_id": "120",
+          "ua_os": "WINDOWS",
+          "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)...",
+          "proxy_way": "CUSTOM",
+          "proxy_type": "NON_USE",
+          "proxy_ip_type": "IPAPI",
+          "proxy_ip_addr_type": "IPV4"
+        },
+        "x-full-default-template": {
+          "extensions_type": "ALLOW",
+          "name": "my-env-1",
+          "browser": "CHROME",
+          "group_ids": ["1876881021063852033"],
+          "group_id": "1876881021063852033",
+          "browser_version_id": "120",
+          "ua_os": "WINDOWS",
+          "os": {
+            "windows": ["windows-all"],
+            "mac": [],
+            "android": [],
+            "ios": [],
+            "linux": []
+          },
+          "ua_type": "[\"all\"]",
+          "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)...",
+          "proxy_way": "CUSTOM",
+          "proxy_type": "NON_USE",
+          "proxy_ip_type": "IPAPI",
+          "proxy_ip_addr_type": "IPV4",
+          "account_list": [],
+          "urls": [],
+          "fixed_urls": [],
+          "restore_url_type": "GLOBAL",
+          "config": "{\"acceptLangType\":\"ip\"}",
+          "data_config_option": [1],
+          "browser_config_option": [1],
+          "data_type": "global",
+          "browser_type": "global",
+          "env_mutil_open_type": "GLOBAL",
+          "spoofing_video_type": "DISABLE",
+          "local_data_config": "{\"type\":0,\"browserType\":\"global\",\"dataType\":null}",
+          "proxy_soft_enable": true,
+          "proxy_soft": "NONE",
+          "proxy_soft_info": {
+            "ip": "",
+            "country": "",
+            "country_code": "",
+            "region": "",
+            "region_code": "",
+            "city": ""
+          },
+          "proxy_api_info": {
+            "ip_method": "EVERY_TIME",
+            "url": "",
+            "ip": "",
+            "port": ""
+          },
+          "bookmark_config_val": {
+            "bookmark_type": "global",
+            "status": false,
+            "file_content": [],
+            "cover_rule": 1,
+            "file_name": "",
+            "type": 1
+          },
+          "access_limit_config_val": {
+            "access_limit_type": "global",
+            "status": false,
+            "type": 1,
+            "quick_selection_option": [],
+            "quick_selection_type": 0,
+            "url_list": ""
+          },
+          "env_tag_ids": [],
+          "extensions_group_id": "",
+          "data_config": "{\"type\":0,\"dataType\":\"global\"}",
+          "browser_config": "{\"type\":0,\"browserType\":\"global\"}",
+          "bookmark_config": "{\"bookmarkType\":\"global\",\"status\":false,\"fileContent\":[],\"coverRule\":1,\"fileName\":\"\",\"type\":1}",
+          "access_limit_config": "{\"accessLimitType\":\"global\",\"status\":false,\"type\":1,\"quickSelectionOption\":[],\"quickSelectionType\":0,\"urlList\":\"\"}"
+        }
+      },
+      "EnvAccount": {
+        "type": "object",
+        "description": "Single environment account entry, used to pre-install account information when creating an environment.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Account ID (generated by server or database)."
+          },
+          "platform": {
+            "type": "string",
+            "description": "Platform name, e.g. 'facebook', 'twitter', 'taobao'."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Associated login page or resource link."
+          },
+          "userName": {
+            "type": "string",
+            "description": "Login account (username/phone/email, etc.)."
+          },
+          "passwd": {
+            "type": "string",
+            "description": "Login password (sensitive, write-only for creation).",
+            "format": "password",
+            "writeOnly": true
+          },
+          "envId": {
+            "type": "string",
+            "description": "Associated environment ID (can be used for binding if provided at creation)."
+          },
+          "proxyHost": {
+            "type": "string",
+            "description": "Specify proxy IP or proxy identifier (optional)."
+          },
+          "remark": {
+            "type": "string",
+            "description": "Account remark/notes (optional)."
+          },
+          "secret": {
+            "type": "string",
+            "description": "2FA or other security secret (sensitive, write-only for creation).",
+            "writeOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "example": {
+          "id": "acct-001",
+          "platform": "taobao",
+          "url": "https://login.taobao.com",
+          "userName": "user@example.com",
+          "passwd": "p@ssw0rd!",
+          "envId": "env-abc123",
+          "proxyHost": "1.2.3.4:1080",
+          "remark": "test account"
+        }
+      },
+      "PutEnvGroup": {
+        "type": "object",
+        "properties": {
+          "member_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of member IDs"
+          },
+          "name": { "type": "string", "description": "Environment group name" },
+          "remark": { "type": "string", "description": "Remark" }
+        },
+        "required": ["name"],
+        "additionalProperties": true
+      },
+      "DelEnvGroup": {
+        "type": "object",
+        "properties": {
+          "del_env": {
+            "type": "boolean",
+            "description": "Whether to also delete environments in the group"
+          }
+        },
+        "required": ["del_env"],
+        "additionalProperties": true
+      },
+      "GetEnvGroupList": {
+        "type": "object",
+        "properties": {
+          "page_no": { "type": "integer", "minimum": 1 },
+          "page_size": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "all": { "type": "boolean" },
+          "detail": { "type": "boolean" },
+          "env_id": { "type": "string" },
+          "member_id": { "type": "string" },
+          "name": { "type": "string" },
+          "remark": { "type": "string" }
+        },
+        "additionalProperties": true
+      },
+      "MemberEditReq": {
+        "type": "object",
+        "properties": {
+          "agent_id": { "type": "string" },
+          "all_env_group": { "type": "boolean" },
+          "authority": {
+            "type": "string",
+            "description": "Member role; default is MEMBER",
+            "enum": ["ADMIN", "MANAGER", "MEMBER"]
+          },
+          "email": {
+            "type": "string",
+            "description": "Account used for login. When creating an EXTERNAL member, a valid email format is required and an email will be sent."
+          },
+          "env_group_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Environment group IDs the member has access to. Retrieve IDs from the environment group API."
+          },
+          "manager_id": { "type": "string" },
+          "name": { "type": "string", "description": "Member name" },
+          "passwd": {
+            "type": "string",
+            "description": "Member password. Important: required when creating INTERNAL members; not required for EXTERNAL members."
+          },
+          "phone": { "type": "string" },
+          "remark": { "type": "string" },
+          "role_id": {
+            "type": "string",
+            "description": "Member role ID; obtain via role management API."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DISABLED", "ENABLED"],
+            "description": "Member status, default ENABLED"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["EXTERNAL", "INTERNAL"],
+            "description": "Member type, default INTERNAL"
+          },
+          "disuse_enable": {
+            "type": "boolean",
+            "description": "Whether member disable feature is enabled (default false). True means disable feature enabled; false means disabled."
+          },
+          "disuse_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Member disable time, used with disuse_enable. Example: 2025-11-21 18:31:47"
+          },
+          "expiry_mode": {
+            "type": "string",
+            "enum": ["INSTANT", "LONGIN_START"],
+            "description": "Member expiry mode, default INSTANT. INSTANT means immediate; LONGIN_START means effective after first login."
+          },
+          "expiry_time": {
+            "type": "integer",
+            "description": "Member expiry days, used with expiry_mode=LONGIN_START. Number of days after activation before expiry, default 30"
+          },
+          "time_zone": {
+            "type": "string",
+            "description": "Member timezone. For China usually Asia/Shanghai; set according to user's network environment to display correct local time on login."
+          }
+        },
+        "required": ["email", "name", "authority", "role_id", "passwd"],
+        "additionalProperties": true
+      },
+      "MemberEditPatchReq": {
+        "type": "object",
+        "properties": {
+          "agent_id": { "type": "string" },
+          "all_env_group": { "type": "boolean" },
+          "authority": {
+            "type": "string",
+            "description": "Member role; default is MEMBER",
+            "enum": ["ADMIN", "MANAGER", "MEMBER"]
+          },
+          "email": {
+            "type": "string",
+            "description": "Account used for login. When creating an EXTERNAL member, a valid email format is required and an email will be sent."
+          },
+          "env_group_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Environment group IDs the member has access to. Retrieve IDs from the environment group API."
+          },
+          "manager_id": { "type": "string" },
+          "name": { "type": "string", "description": "Member name" },
+          "passwd": {
+            "type": "string",
+            "description": "Member password. Important: required when creating INTERNAL members; for PATCH, md5 hashing of provided password is needed for INTERNAL members; not required for EXTERNAL members."
+          },
+          "phone": { "type": "string" },
+          "remark": { "type": "string" },
+          "role_id": {
+            "type": "string",
+            "description": "Member role ID; obtain via role management API."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["DISABLED", "ENABLED"],
+            "description": "Member status, default ENABLED"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["EXTERNAL", "INTERNAL"],
+            "description": "Member type, default INTERNAL"
+          },
+          "disuse_enable": {
+            "type": "boolean",
+            "description": "Whether member disable feature is enabled (default false). True means disable feature enabled; false means disabled."
+          },
+          "disuse_time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Member disable time, used with disuse_enable. Example: 2025-11-21 18:31:47"
+          },
+          "expiry_mode": {
+            "type": "string",
+            "enum": ["INSTANT", "LONGIN_START"],
+            "description": "Member expiry mode, default INSTANT. INSTANT means immediate; LONGIN_START means effective after first login."
+          },
+          "expiry_time": {
+            "type": "integer",
+            "description": "Member expiry days, used with expiry_mode=LONGIN_START. Number of days after activation before expiry, default 30"
+          },
+          "time_zone": {
+            "type": "string",
+            "description": "Member timezone. For China usually Asia/Shanghai; set according to user's network environment to display correct local time on login."
+          }
+        },
+        "required": ["email", "name", "authority", "role_id", "passwd"],
+        "additionalProperties": true
+      },
+      "MemberGetList": {
+        "type": "object",
+        "properties": {
+          "page_no": { "type": "integer", "minimum": 1 },
+          "page_size": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "all": { "type": "boolean" },
+          "authority": { "type": "string" },
+          "detail": { "type": "boolean" },
+          "end_create_time": { "type": "string", "format": "date-time" },
+          "env_group_id": { "type": "string" },
+          "remark": { "type": "string" },
+          "role_id": { "type": "string" },
+          "start_create_time": { "type": "string", "format": "date-time" },
+          "status": { "type": "string" },
+          "user": { "type": "string" }
+        },
+        "additionalProperties": true
+      },
+      "RoleGetList": {
+        "type": "object",
+        "properties": {
+          "page_no": { "type": "integer", "minimum": 1 },
+          "page_size": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "all": { "type": "boolean" },
+          "detail": { "type": "boolean" },
+          "member_id": { "type": "string" },
+          "name": { "type": "string" },
+          "remark": { "type": "string" }
+        },
+        "additionalProperties": true
+      },
+      "ChangeOrgReq": {
+        "type": "object",
+        "description": "Empty object here; additional properties are allowed.",
+        "additionalProperties": true
+      },
+      "ProxyEditReq": {
+        "type": "object",
+        "properties": {
+          "host": { "type": "string" },
+          "ip_type": { "type": "string", "enum": ["IP2LOCATION", "IPAPI"] },
+          "out_ip": { "type": "string" },
+          "passwd": { "type": "string" },
+          "port": { "type": "integer", "minimum": 1 },
+          "remark": { "type": "string" },
+          "status": { "type": "string", "enum": ["FAIL", "SUCCESS", "WAIT"] },
+          "type": {
+            "type": "string",
+            "enum": ["HTTP", "HTTPS", "IPFLY", "SOCKS5"]
+          },
+          "user_name": { "type": "string" }
+        },
+        "required": ["type", "host", "port", "user_name", "passwd", "ip_type"],
+        "additionalProperties": true
+      },
+      "ProxyCreateReq": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["HTTP", "HTTPS", "IPFLY", "SOCKS5"]
+          },
+          "host": { "type": "string", "maxLength": 100 },
+          "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+          "remark": { "type": "string", "maxLength": 200 },
+          "user_name": { "type": "string", "maxLength": 100 },
+          "passwd": { "type": "string", "maxLength": 100 }
+        },
+        "required": ["type", "host", "port"],
+        "additionalProperties": true
+      },
+      "ProxyGetList": {
+        "type": "object",
+        "properties": {
+          "page_no": { "type": "integer", "minimum": 1 },
+          "page_size": { "type": "integer", "minimum": 1, "maximum": 100 },
+          "all": { "type": "boolean" },
+          "detail": { "type": "boolean" },
+          "env": { "type": "string" },
+          "host": { "type": "string" },
+          "id": { "type": "string" },
+          "remark": { "type": "string" },
+          "serial_num": { "type": "integer", "minimum": 1 },
+          "type": {
+            "type": "string",
+            "enum": ["HTTP", "HTTPS", "IPFLY", "SOCKS5"]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ]
+}
